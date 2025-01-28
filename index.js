@@ -7,9 +7,13 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const path = require('path');
 const authenticate = require('./middleware/authentication');
+const connectDB = require('./config/db');
 
 
 const port = process.env.PORT || 3000;
+
+// Connect to MongoDB
+connectDB();
 
 //middleware
 // Apply authentication middleware globally (to all routes)
@@ -38,7 +42,7 @@ const loadRoutes = (folderName) => {
   
   // Add routes dynamically
   loadRoutes('home'); // Routes for "/"
-  loadRoutes('laptops'); // Routes for "/laptop"
+  loadRoutes('laptops'); // Routes for "/laptops"
 
 // 404 handler for undefined routes
 app.use((req, res, next) => {
